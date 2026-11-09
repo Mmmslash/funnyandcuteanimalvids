@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex"><meta name="referrer" content="no-referrer">
+<title>TikTok connected</title><link rel="stylesheet" href="style.css"></head>
+<body>
+<main>
+<h1 id="h">Almost done</h1>
+<p id="msg" class="muted">Copy the full address of this page from your browser's address bar and paste it into PawClips.</p>
+<div class="box">
+ <p style="margin-top:0">Address to paste:</p>
+ <p><span class="code" id="url"></span></p>
+ <button id="copy" type="button">Copy address</button>
+</div>
+<p class="muted">This page doesn't store or send anything. The code in the address only works once, for a few minutes, and only together with the app's secret key.</p>
+</main>
+<script>
+  var url = location.href;
+  var q = new URLSearchParams(location.search);
+  document.getElementById('url').textContent = url;
+  if (q.get('error')) {
+    document.getElementById('h').textContent = 'TikTok login was cancelled';
+    document.getElementById('msg').textContent = 'TikTok said: ' + (q.get('error_description') || q.get('error')) + '. Run the login command again.';
+  }
+  document.getElementById('copy').onclick = function () {
+    navigator.clipboard.writeText(url).then(function () {
+      document.getElementById('copy').textContent = 'Copied';
+    });
+  };
+</script>
+</body></html>
